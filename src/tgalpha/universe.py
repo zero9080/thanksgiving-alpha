@@ -2,8 +2,11 @@ from pathlib import Path
 from typing import List
 import polars as pl
 
+# Current DJIA constituents (as of 2025)
 DJIA_DEFAULT = [
-    "AAPL","MSFT","UNH","GS","BA"
+    "AAPL", "AMGN", "AMZN", "AXP", "BA", "CAT", "CRM", "CSCO", "CVX", "DIS",
+    "DOW", "GS", "HD", "HON", "IBM", "INTC", "JNJ", "JPM", "KO", "MCD",
+    "MMM", "MRK", "MSFT", "NKE", "PG", "TRV", "UNH", "V", "VZ", "WMT"
 ]
 
 def load_universe(spec: str) -> List[str]:
