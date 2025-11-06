@@ -1,13 +1,14 @@
 # Thanksgiving-Alpha
 
 Seasonality research around US Thanksgiving for DJIA constituents and indices.
-Parameterizable window: X business days **before** Thanksgiving (use Open) to Y business days **after** (use Close; Black Friday half-day honored).
+Parameterizable window: X business days **before** Thanksgiving (use Open) to Y business days **after** (use Close; Black Friday is a half-day session, closing at 1:00 PM ET).
 
 ## Features
 
 - Analyzes stock performance around Thanksgiving using configurable trading windows
 - Calculates returns from X business days before to Y business days after Thanksgiving
-- Proper NYSE trading calendar with market holidays
+- Proper NYSE trading calendar with market holidays and half-day sessions
+- Black Friday treated as a trading day (half-day: market closes at 1:00 PM ET)
 - Aggregates statistics per symbol: median return, average return, win rate, standard deviation
 - Exports results to CSV, Parquet, and HTML formats
 - Comprehensive test suite with 28+ unit tests
@@ -145,7 +146,7 @@ thanksgiving-alpha/
 
 ## Notes
 
-- Black Friday is treated as a full trading day (standard since 1993)
+- Black Friday is a half-day trading session (closes at 1:00 PM ET) but counts as a trading day for business day calculations
 - NYSE market holidays are properly excluded from business day counts
 - Symbols with fewer than `min_trades` observations are filtered out
 - Missing data for individual years is handled gracefully

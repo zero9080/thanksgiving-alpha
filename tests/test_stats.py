@@ -15,7 +15,7 @@ def test_window_dates_2025() -> None:
     """Test specific window dates for 2025."""
     # Thanksgiving 2025 is Nov 27 (Thursday)
     # 3 days before should be Mon Nov 24
-    # 1 day after should be Fri Nov 28 (Black Friday - a trading day)
+    # 1 day after should be Fri Nov 28 (Black Friday - half-day session, closes 1:00 PM ET)
     before, after = holiday_window_dates(2025, 3, 1)
     assert before.date() == date(2025, 11, 24)
     assert after.date() == date(2025, 11, 28)

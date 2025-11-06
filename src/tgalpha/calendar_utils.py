@@ -19,7 +19,12 @@ def _third_monday(month: int) -> Holiday:
 
 
 class NYSECalendar(USFederalHolidayCalendar):
-    """NYSE trading calendar with market holidays."""
+    """NYSE trading calendar with market holidays.
+    
+    Note: Black Friday (day after Thanksgiving) is a half-day trading session
+    (market closes at 1:00 PM ET) but is still counted as a trading day for
+    business day calculations. It is NOT a market holiday.
+    """
     
     rules = [
         Holiday("NewYearsDay", month=1, day=1, observance=nearest_workday),

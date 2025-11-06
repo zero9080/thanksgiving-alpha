@@ -2,9 +2,9 @@
 ## DJIA Constituents: 2000-2024
 
 **Analysis Period:** 2000-2024 (25 years)  
-**Trading Window:** 3 business days before Thanksgiving → 1 business day after (Black Friday)  
-**Universe:** 30 DJIA stocks  
-**Total Observations:** 718 (out of possible 750)  
+**Universe:** 30 DJIA Constituents  
+**Trading Window:** 3 business days before Thanksgiving → 1 business day after (Black Friday, a half-day session closing at 1:00 PM ET)  
+**Total Observations:** 718 stock-year combinations  
 **Data Completeness:** 95.7%
 
 ---
@@ -46,7 +46,7 @@
 
 ### 2. Retail & Consumer
 - **HD, NKE, WMT, MCD** all show positive median returns
-- Likely benefiting from Black Friday shopping anticipation
+- Likely benefiting from Black Friday retail anticipation (despite early 1:00 PM market close)
 - **Consumer discretionary stocks** perform well in this window
 
 ### 3. Healthcare Strength
@@ -169,7 +169,7 @@
 
 2. **Technology Dominance:** Tech sector shows strongest and most consistent performance
 
-3. **Retail Anticipation:** Consumer-facing stocks benefit from Black Friday shopping expectations
+3. **Retail Anticipation:** Consumer-facing stocks benefit from Black Friday retail expectations (despite half-day trading session closing at 1:00 PM ET)
 
 4. **Financial Underperformance:** Banks and financial services show weakness during holiday period
 

@@ -12,7 +12,9 @@ Thanksgiving-Alpha is a reproducible research tool that quantifies stock perform
 
 ## Key Findings (25-Year Historical Analysis: 2000-2024)
 
-Based on a comprehensive 25-year analysis of 30 DJIA stocks measuring returns from 3 business days before Thanksgiving to 1 business day after (Black Friday):
+## What We Analyzed
+
+Based on a comprehensive 25-year analysis of 30 DJIA stocks measuring returns from 3 business days before Thanksgiving to 1 business day after (Black Friday, which is a half-day session closing at 1:00 PM ET):
 
 ### Top Performers (2000-2024)
 | Rank | Symbol | Median Return | Avg Return | Win Rate | Observations |
@@ -53,7 +55,7 @@ Based on a comprehensive 25-year analysis of 30 DJIA stocks measuring returns fr
 2. **Robust Calendar Logic**
    - Proper NYSE trading day calculations
    - Market holiday handling (10 federal holidays)
-   - Black Friday treatment as full trading day
+   - Black Friday treated as a half-day trading session (1:00 PM ET close)
 
 3. **Statistical Analysis**
    - Median returns (robust to outliers)
@@ -81,11 +83,9 @@ Based on a comprehensive 25-year analysis of 30 DJIA stocks measuring returns fr
 - **Sector Rotation:** Overweight consumer discretionary and technology, underweight financials during Thanksgiving window
 
 ### Research Applications
-- **Pattern Discovery:** Systematic analysis reveals 83% of DJIA stocks show positive Thanksgiving effects
-- **Sector Analysis:** Technology (+1.02% median) and consumer discretionary (+0.90% median) outperform; financials (-0.08% median) underperform
-- **Academic Study:** 25 years of data (718 observations) provides statistically robust sample for hypothesis testing
-- **Market Efficiency:** Persistent patterns suggest potential market inefficiency around holiday periods
-- **Behavioral Finance:** Consumer optimism and Black Friday anticipation may drive consumer stock outperformance
+1. **Holiday Effect Studies**: Quantifies the "Thanksgiving effect" with sector-specific evidence (tech/consumer discretionary outperform, financials underperform)
+2. **Market Microstructure**: Analyzes half-day trading session impact (Black Friday 1:00 PM close) on price discovery
+3. **Behavioral Finance:** Consumer optimism and Black Friday retail anticipation may drive consumer stock outperformance
 
 ## Technical Architecture
 
