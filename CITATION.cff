@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+authors:
+  - family-names: "Liebl"
+    given-names: "Martin"
+    email: "lieblm@gmail.com"
+title: "Thanksgiving-Alpha: Seasonality Research Tool for US Thanksgiving Stock Performance"
+version: 1.0.0
+date-released: 2025-11-06
+url: "https://github.com/lieblm/thanksgiving-alpha"
+repository-code: "https://github.com/lieblm/thanksgiving-alpha"
+keywords:
+  - quantitative finance
+  - seasonality
+  - thanksgiving effect
+  - stock market
+  - DJIA
+  - algorithmic trading
+  - market anomalies
+  - Python
+license: MIT
+abstract: >
+  A reproducible research tool for analyzing stock performance patterns 
+  around US Thanksgiving. Provides configurable analysis windows, proper 
+  NYSE trading calendar handling, and comprehensive statistical outputs. 
+  Includes 25-year historical analysis showing significant seasonality 
+  effects in DJIA constituents.

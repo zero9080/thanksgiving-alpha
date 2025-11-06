@@ -1,7 +1,10 @@
 # Thanksgiving-Alpha
 
-Seasonality research around US Thanksgiving for DJIA constituents and indices.
-Parameterizable window: X business days **before** Thanksgiving (use Open) to Y business days **after** (use Close; Black Friday is a half-day session, closing at 1:00 PM ET).
+> **A reproducible research tool for analyzing stock performance patterns around US Thanksgiving**
+
+Quantitative analysis of DJIA stocks measuring returns from X business days before Thanksgiving to Y business days after. Built with Python, featuring proper NYSE trading calendars, configurable analysis windows, and comprehensive statistical outputs.
+
+**Key Finding:** 25-year analysis (2000-2024) shows 83% of DJIA stocks exhibit positive median returns during the Thanksgiving window, with technology and consumer discretionary sectors significantly outperforming.
 
 ## Features
 
@@ -151,3 +154,63 @@ thanksgiving-alpha/
 - Symbols with fewer than `min_trades` observations are filtered out
 - Missing data for individual years is handled gracefully
 - All returns are simple returns (not log returns)
+
+## Results & Findings
+
+For comprehensive analysis results, see:
+- **[EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)** - Stakeholder-focused overview
+- **[ANALYSIS_25YEARS.md](ANALYSIS_25YEARS.md)** - Detailed 25-year findings (2000-2024)
+
+**Top 3 Performers (2000-2024):**
+1. Apple (AAPL): +2.00% median return, 72% win rate
+2. Amazon (AMZN): +1.69% median return, 68% win rate  
+3. Home Depot (HD): +1.26% median return, 76% win rate
+
+## Disclaimer
+
+⚠️ **This tool is for research and educational purposes only.**
+
+- Past performance does not guarantee future results
+- Not financial advice or investment recommendations
+- Markets evolve; historical patterns may not persist
+- Transaction costs and slippage would reduce actual returns
+- Survivorship bias present (current DJIA constituents only)
+- Always consult qualified financial professionals before making investment decisions
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+**Martin Liebl**  
+📧 Email: [lieblm@gmail.com](mailto:lieblm@gmail.com)  
+🐙 GitHub: [@lieblm](https://github.com/lieblm)
+
+Questions, feedback, or collaboration inquiries are welcome!
+
+## Support This Project
+
+If you find this tool useful for your research or analysis, consider supporting its development:
+
+### Cryptocurrency Donations
+- **Bitcoin (BTC):** `bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh`
+- **Ethereum (ETH):** `0x71C7656EC7ab88b098defB751B7401B5f6d8976F`
+- **USDC/USDT (ERC-20):** `0x71C7656EC7ab88b098defB751B7401B5f6d8976F`
+
+### Other Ways to Support
+- ⭐ Star this repository
+- 🐛 Report bugs or suggest features via [Issues](https://github.com/lieblm/thanksgiving-alpha/issues)
+- 📖 Share your research findings using this tool
+- 🔀 Contribute code improvements via Pull Requests
+
+### GitHub Sponsors
+[Sponsor @lieblm on GitHub](https://github.com/sponsors/lieblm) *(if you have GitHub Sponsors enabled)*
+
+---
+
+**Built with ❤️ for the quantitative finance community**

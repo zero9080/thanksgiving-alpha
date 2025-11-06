@@ -204,11 +204,20 @@ With 28 passing tests, comprehensive documentation, 25-year historical validatio
 
 ---
 
-## Contact & Documentation
+## Contact & Support
 
+**Author:** Martin Liebl  
+**Email:** [lieblm@gmail.com](mailto:lieblm@gmail.com)  
+**Repository:** [github.com/lieblm/thanksgiving-alpha](https://github.com/lieblm/thanksgiving-alpha)
+
+### Documentation Resources
 - **Full Documentation:** See `README.md`
 - **Configuration Guide:** See `configs/example_djia.yaml`
 - **Source Code:** All modules in `src/tgalpha/`
 - **Test Suite:** Run `pytest tests/ -v`
 
-**Project Status:** ✅ All deliverables completed • ✅ Tests passing • ✅ Ready for use
+**Project Status:** ✅ All deliverables completed • ✅ Tests passing • ✅ Ready for production use
+
+---
+
+*If you find this research tool valuable, please consider starring the repository or contributing to its development.*
