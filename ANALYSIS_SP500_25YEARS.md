@@ -419,6 +419,44 @@ output:
 **Aggregation:** Median, mean, win rate, standard deviation per symbol  
 **Filtering:** Minimum 10 observations (trades) required
 
+**Command to Reproduce:**
+```bash
+python -m tgalpha.cli configs/sp500_25years.yaml --top=50 --show-coverage
+```
+
+---
+
+## Academic Context
+
+This analysis builds on established research on calendar anomalies and holiday effects in financial markets:
+
+- **Lakonishok & Smidt (1988)** documented significant positive returns around major US holidays over 90 years (1897-1986)
+- **Ariel (1990)** identified strong pre-holiday effects including Thanksgiving across multiple market indices
+- **Brockman & Michayluk (1998)** confirmed persistence of holiday effects through the 1990s despite increased market awareness
+
+Our S&P 500 findings—with 89% of stocks showing positive median returns—provide strong evidence that Thanksgiving seasonality persists across the broad US equity market. Key observations:
+
+1. **Broad Confirmation:** Effect exists across 264 stocks spanning all major sectors (not just DJIA blue chips)
+2. **Sector Patterns:** Technology and consumer discretionary leadership aligns with behavioral finance theories about optimism and retail anticipation
+3. **Statistical Rigor:** Enhanced framework now includes bootstrap confidence intervals, Wilcoxon tests, and Benjamini-Hochberg FDR correction
+
+**Important Caveats:**
+- Calendar anomalies can diminish as markets become more efficient (Schwert 2003)
+- Transaction costs and market impact reduce gross returns significantly
+- Survivorship bias present in current constituent analysis
+- Statistical significance testing with multiple hypothesis correction is essential
+
+**For complete academic references, methodology details, and citations, see:** [REFERENCES.md](REFERENCES.md)
+
+---
+
+## Related Analyses
+
+- [DJIA 25-Year Analysis](ANALYSIS_25YEARS.md) - 30 stocks, 718 observations, 96% data completeness
+- [NASDAQ-100 25-Year Analysis](ANALYSIS_NASDAQ100_25YEARS.md) - 96 stocks, 1,904 observations, tech-heavy focus
+- [Executive Summary](EXECUTIVE_SUMMARY.md) - Cross-index synthesis with 8,501 total observations across 390 unique stocks
+- [Academic References](REFERENCES.md) - 10 citations covering holiday effects, statistical methods, and market microstructure
+
 ---
 
 **Generated with:** Thanksgiving-Alpha v1.0.0  
@@ -428,4 +466,4 @@ output:
 
 ---
 
-*For complete methodology, source code, and additional analyses (DJIA, NASDAQ-100), visit the GitHub repository.*
+**Disclaimer:** This analysis is for informational and research purposes only. It is not financial advice. All returns reported are gross returns that do not account for transaction costs, taxes, or other real-world trading expenses. Past performance does not guarantee future results. Trading and investing involve risk of loss. Consult with a qualified financial advisor before making investment decisions.

@@ -229,12 +229,30 @@ For **aggressive investors:**
 - Past performance does not guarantee future results
 - Not financial advice or investment recommendations
 - Survivorship bias present (current constituents only)
-- Transaction costs and slippage would reduce returns
+- **All returns are gross returns** (do not account for transaction costs, taxes, slippage)
+- Transaction costs and market impact will reduce actual net returns
 - Market conditions evolve; historical patterns may not persist
 - Many stocks have <25 years of data due to recent IPOs
 - Small sample sizes for recent IPOs reduce statistical confidence
 
 **Always consult qualified financial professionals before making investment decisions.**
+
+---
+
+## Academic Context
+
+This analysis aligns with established literature on calendar anomalies and holiday effects:
+
+- **Lakonishok & Smidt (1988)** documented significant positive returns around major US holidays in their 90-year study
+- **Ariel (1990)** specifically identified pre-holiday effects including Thanksgiving
+- **Brockman & Michayluk (1998)** confirmed persistence of holiday effects through the 1990s
+
+Our NASDAQ-100 findings of 89% positive median returns and technology sector dominance are consistent with this literature, though readers should note:
+- Calendar anomalies can diminish after publication as markets become more efficient
+- Transaction costs and market impact can erode observed patterns
+- Statistical significance testing with multiple hypothesis correction is essential
+
+**For complete academic references and methodology, see:** [REFERENCES.md](REFERENCES.md)
 
 ---
 
@@ -254,6 +272,17 @@ ranking:
 output:
   formats: ["parquet", "csv", "html"]
 ```
+
+**Command to Reproduce:**
+```bash
+python -m tgalpha.cli configs/nasdaq100_25years.yaml --top=50 --show-coverage
+```
+
+**Related Analyses:**
+- [DJIA 25-Year Analysis](ANALYSIS_25YEARS.md) - 30 stocks, 718 observations
+- [S&P 500 25-Year Analysis](ANALYSIS_SP500_25YEARS.md) - 264 stocks, 5,879 observations  
+- [Executive Summary](EXECUTIVE_SUMMARY.md) - Cross-index synthesis with 8,501 total observations
+- [Academic References](REFERENCES.md) - 10 citations including Lakonishok & Smidt (1988)
 
 **Generated with:** Thanksgiving-Alpha v1.0.0  
 **Analysis Date:** November 6, 2025  

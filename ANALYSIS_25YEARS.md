@@ -2,10 +2,18 @@
 ## DJIA Constituents: 2000-2024
 
 **Analysis Period:** 2000-2024 (25 years)  
-**Universe:** 30 DJIA Constituents  
+**Universe:** 30 DJIA Constituents (as of November 2025)  
 **Trading Window:** 3 business days before Thanksgiving → 1 business day after (Black Friday, a half-day session closing at 1:00 PM ET)  
 **Total Observations:** 718 stock-year combinations  
-**Data Completeness:** 95.7%
+**Data Completeness:** 96% (718 out of 750 possible observations)  
+**Filtering:** Minimum 10 observations required per stock
+
+**Methodology:**
+- **Return Calculation:** Simple returns (Close_after - Open_before) / Open_before
+- **Trading Calendar:** NYSE business days excluding 10 federal holidays
+- **Black Friday:** Counted as trading day (half-day session, 1:00 PM ET close)
+- **Data Source:** Yahoo Finance via yfinance library (auto_adjust=True)
+- **Statistical Tests:** See "Statistical Notes" section below
 
 ---
 
@@ -123,9 +131,33 @@
 - **BA (Boeing):** 24 years (1 timeout error)
 
 ### Survivorship Considerations
-- Analysis includes current DJIA constituents only
-- Does not account for companies removed from index over time
-- Historical DJIA composition changes not reflected
+- Analysis uses **current DJIA constituents** (as of November 2025)
+- Excludes companies that were removed from the index during 2000-2024 period
+- This may introduce positive bias, though magnitude is difficult to quantify without historical constituent data
+- Future analyses should consider point-in-time membership for unbiased estimates
+
+### Data Completeness by Universe
+- **DJIA:** 718 observations out of 750 possible (96% completeness)
+- Highest completeness among the three indices analyzed (vs. S&P 500: 89%, NASDAQ-100: 79%)
+- Mature, stable index membership contributes to excellent data coverage
+
+---
+
+## Returns Specification
+
+**Important:** All returns reported in this analysis are **gross returns** (calculated from close-to-close prices without adjustments).
+
+**Gross vs. Net Returns:**
+- **Gross returns** = Price change only (Open → Close)
+- **Net returns** = Gross returns minus transaction costs
+
+**Transaction costs not included:**
+- Bid-ask spreads (typically 0.01-0.05% for liquid DJIA stocks)
+- Commissions (varies by broker, often zero for retail traders)
+- Market impact for large orders (depends on position size)
+- Slippage on market orders
+
+**Implication:** Actual trading returns will be lower than reported gross returns. For small retail positions, the difference is typically minor (0.05-0.15%). For institutional size, costs can be more significant.
 
 ---
 
@@ -173,50 +205,105 @@
 
 4. **Financial Underperformance:** Banks and financial services show weakness during holiday period
 
-5. **Statistical Significance:** With 25 years of data and 68-76% win rates for top performers, patterns appear robust
+5. **Statistical Robustness:** With 25 years of data and 718 observations across 30 stocks, empirical patterns show consistency over multiple economic cycles
 
 6. **Risk Considerations:** 
    - Past performance doesn't guarantee future results
-   - Small sample size per stock (max 25 observations)
-   - Survivorship bias (current DJIA constituents only)
-   - Transaction costs would reduce returns
-   - Market conditions evolve over time
+   - Each stock has maximum 25 observations (limited sample size for individual securities)
+   - Survivorship bias present (current DJIA constituents only)
+   - Gross returns reported; transaction costs will reduce actual net returns
+   - Market conditions and participant behavior evolve over time
+   - Holiday effect may diminish as more market participants become aware
+
+---
+
+## Academic Context
+
+This analysis aligns with established literature on calendar anomalies and holiday effects in financial markets:
+
+- **Lakonishok & Smidt (1988)** documented significant positive returns around major US holidays in their 90-year study
+- **Ariel (1990)** specifically identified pre-holiday effects including Thanksgiving
+- **Brockman & Michayluk (1998)** confirmed persistence of holiday effects through the 1990s
+
+Our findings of 83% positive median returns during the Thanksgiving window are consistent with this academic literature, though readers should note that:
+- Some calendar anomalies have diminished after publication (Market efficiency increases)
+- Transaction costs and market impact can erode observed patterns
+- Statistical significance testing with multiple hypothesis correction is essential
+
+**For complete academic references and methodology, see:** [REFERENCES.md](REFERENCES.md)
+
+---
+
+## Statistical Notes
+
+**Methodology:**
+- **Returns:** Simple returns (not log returns): (Close - Open) / Open
+- **Median preferred over mean:** More robust to outliers
+- **Win rate:** Percentage of years with positive returns
+- **Standard deviation:** Annualized volatility proxy (though based on single observation per year)
+
+**Statistical Significance:**
+Future analyses should include:
+- Bootstrap confidence intervals for median and mean returns
+- Wilcoxon signed-rank test (non-parametric test vs. zero)
+- Benjamini-Hochberg correction for multiple testing (30 stocks)
+- Effect size measures (Cohen's d)
+- Sharpe ratio calculations for risk-adjusted assessment
+
+The enhanced analytical framework with these statistical tests is now available in the codebase (see `src/tgalpha/stats_tests.py`).
 
 ---
 
 ## Recommendations
 
 **For Researchers:**
-- Expand analysis to full S&P 500 for broader validation
-- Test alternative windows (e.g., 5 days before/after)
-- Analyze sector rotation patterns
-- Statistical significance testing (t-tests, bootstrapping)
+- Extend analysis to S&P 500 for broader validation ✅ **(COMPLETED - see ANALYSIS_SP500_25YEARS.md)**
+- Test alternative windows (e.g., 5 days before/after, 2 days before/after)
+- Analyze sector rotation patterns and factor exposures
+- Implement statistical significance testing ✅ **(COMPLETED - see stats_tests.py module)**
+- Consider point-in-time index membership to eliminate survivorship bias
+- Compare holiday effect across different economic regimes (recession vs. expansion)
 
 **For Traders:**
-- Consider long positions in AAPL, AMZN, HD, UNH, NKE
-- Avoid or short JNJ, GS, JPM during this window
-- Use tight stops given multi-day holding period
-- Account for transaction costs in strategy design
+- **Long candidates (empirical edge):** AAPL, AMZN, HD, UNH, NKE
+- **Avoid/short candidates:** JNJ, GS, JPM during this window
+- Use appropriate position sizing and risk management
+- Account for transaction costs in strategy design (bid-ask spreads, commissions, slippage)
+- Consider that reported returns are gross; net returns will be lower
+- Be aware of reduced liquidity on Black Friday half-day session (1:00 PM ET close)
 
 **For Portfolio Managers:**
 - Tactical tilt toward technology & consumer discretionary
-- Reduce financial exposure around Thanksgiving
-- Consider this as one factor among many
-- Backtest with realistic trading costs
+- Reduce financial sector exposure around Thanksgiving
+- Consider this as one factor among many in allocation decisions
+- Backtest with realistic trading costs and market impact
+- Monitor whether effect persists or diminishes over time
+- Use statistical significance tests to validate any trading signals
 
 ---
 
 ## Appendix: Full Dataset
 
 **Files Generated:**
-- `data/outputs/ranking.csv` - Full results table
-- `data/outputs/ranking.parquet` - Compressed binary format
-- `data/outputs/ranking.html` - Web-viewable table
+- `data/outputs/ranking.csv` - Full results table (Excel-compatible)
+- `data/outputs/ranking.parquet` - Compressed binary format (for big data analytics)
+- `data/outputs/ranking.html` - Web-viewable formatted table
 
 **Configuration Used:** `configs/djia_25years.yaml`
 
 **Analysis Date:** November 6, 2025
 
+**Command to Reproduce:**
+```bash
+python -m tgalpha.cli configs/djia_25years.yaml --top=30 --show-coverage
+```
+
+**Related Analyses:**
+- [S&P 500 25-Year Analysis](ANALYSIS_SP500_25YEARS.md) - 264 stocks, 5,879 observations
+- [NASDAQ-100 25-Year Analysis](ANALYSIS_NASDAQ100_25YEARS.md) - 96 stocks, 1,904 observations
+- [Executive Summary](EXECUTIVE_SUMMARY.md) - Cross-index synthesis with 8,501 total observations
+- [Academic References](REFERENCES.md) - 10 citations including Lakonishok & Smidt (1988)
+
 ---
 
-**Disclaimer:** This analysis is for informational and research purposes only. Past performance does not guarantee future results. Trading involves risk of loss. Consult with a financial advisor before making investment decisions.
+**Disclaimer:** This analysis is for informational and research purposes only. It is not financial advice. All returns reported are gross returns that do not account for transaction costs, taxes, or other real-world trading expenses. Past performance does not guarantee future results. Trading and investing involve risk of loss. Consult with a qualified financial advisor before making investment decisions. The authors make no representations about the accuracy or completeness of this analysis and disclaim all liability for any losses arising from reliance on this information.
