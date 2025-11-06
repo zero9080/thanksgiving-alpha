@@ -27,10 +27,12 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
    - Year-tracked return computation with missing data handling
    - Multi-format exports: CSV, Parquet, HTML
 
-2. **Universes Supported**
-   - **DJIA:** 30 stocks (DJIA_DEFAULT in universe.py)
+2. **Universes Supported** ⭐ **THREE MAJOR INDICES**
+   - **S&P 500:** 300 stocks across all sectors (SP500_DEFAULT in universe.py) - **NEW**
    - **NASDAQ-100:** 100 stocks (NASDAQ100_DEFAULT in universe.py)
+   - **DJIA:** 30 stocks (DJIA_DEFAULT in universe.py)
    - **Custom:** CSV file support via config
+   - **Total Coverage:** 390 unique stocks analyzed
 
 3. **Testing & Quality**
    - **28 passing unit tests** (pytest)
@@ -46,9 +48,10 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
 
 5. **Documentation**
    - README.md (comprehensive usage guide)
-   - EXECUTIVE_SUMMARY.md (stakeholder overview)
-   - ANALYSIS_25YEARS.md (DJIA 25-year analysis: 718 observations)
+   - EXECUTIVE_SUMMARY.md (cross-index stakeholder overview with 8,501 observations) - **UPDATED**
+   - ANALYSIS_SP500_25YEARS.md (S&P 500 25-year analysis: 5,879 observations) - **NEW**
    - ANALYSIS_NASDAQ100_25YEARS.md (NASDAQ-100 25-year analysis: 1,904 observations)
+   - ANALYSIS_25YEARS.md (DJIA 25-year analysis: 718 observations)
    - CITATION.cff (academic citation support)
    - .github/FUNDING.yml (donation/sponsorship links)
 
@@ -94,23 +97,52 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
 
 ## 📈 Key Findings from Completed Analyses
 
+### Comprehensive Multi-Index Summary (2000-2024)
+**Total:** 8,501 observations across 390 unique stocks
+
+| Index | Stocks | Observations | Completeness | Top Performer | Consistency Leader |
+|-------|--------|--------------|--------------|---------------|-------------------|
+| S&P 500 | 264 | 5,879 | 89% | SHOP (+3.36%) | MNST (84% win rate) |
+| NASDAQ-100 | 96 | 1,904 | 79% | ENPH (+3.61%) | MNST (84% win rate) |
+| DJIA | 30 | 718 | 96% | AAPL (+2.00%) | AMZN/HD/NKE (76% win rate) |
+
+### S&P 500 Analysis (2000-2024) ⭐ **NEWLY COMPLETED**
+- **5,879 observations** across 264 stocks (89% completeness)
+- **Top performers:** SHOP (+3.36%), DE (+3.08%), PANW (+3.05%), AVGO (+2.27%), AMAT (+2.26%)
+- **Consistency champion:** MNST (+2.02% median, 84% win rate)
+- **Sector insights:**
+  - Technology: 6 of top 10 performers (semiconductors dominate)
+  - Consumer Discretionary: Strong retail/e-commerce presence (SHOP, AMZN)
+  - Industrials: DE (Deere) shows exceptional +3.08% median
+  - Financials: Payment networks (MA +2.17%) vastly outperform banks (GS/JPM/WFC negative)
+- **Broadest market coverage** with balanced sector representation
+- **Investment strategies documented:** Conservative (75%+ win rate), Balanced (2.0%+ median, 65%+ win rate), Aggressive (2.5%+ median)
+
 ### DJIA Analysis (2000-2024)
-- **718 observations** across 30 stocks
-- Top performers: AAPL (+2.00%), AMZN (+1.69%), HD (+1.26%)
+- **718 observations** across 30 stocks (96% completeness)
+- **Top performers:** AAPL (+2.00%), AMZN (+1.69%), HD (+1.26%)
 - 83% of stocks show positive median returns
 - Technology and consumer discretionary sectors outperform
 - Financial sector underperforms
 
 ### NASDAQ-100 Analysis (2000-2024)
-- **1,904 observations** across 96 stocks (79% completeness due to recent IPOs)
-- Top performers: ENPH (+3.61%), PANW (+3.05%), AVGO (+2.27%)
-- Semiconductor sector dominance
+- **1,904 observations** across 96 stocks (79% completeness)
+- **Top performers:** ENPH (+3.61%), PANW (+3.05%), AVGO (+2.27%)
+- Semiconductor sector dominance (6 of top 10)
 - MNST shows 84% win rate (highest consistency)
 - Higher returns but more volatility vs. DJIA
+- 79% completeness due to recent IPOs (SNOW, PLTR, DASH, etc.)
+
+### Universal Cross-Index Findings
+1. **Thanksgiving seasonality effect confirmed** across all three indices (80-90% positive median returns)
+2. **Technology sector leadership** persistent across DJIA, NASDAQ-100, and S&P 500
+3. **Consumer discretionary excellence** driven by Black Friday retail anticipation
+4. **Traditional banking weakness** (GS, JPM, WFC) consistent across all indices
+5. **Payment networks outperform banks** (MA, V significantly higher returns than traditional lenders)
 
 ---
 
-## 🚀 How to Resume Work
+## 🔧 Technical Implementation Details
 
 ### Step 1: Check Recent History
 **ALWAYS start by reviewing git commit history:**
@@ -131,19 +163,21 @@ Check existing config files:
 - `configs/example_djia.yaml` - Original DJIA config
 - `configs/djia_25years.yaml` - 25-year DJIA analysis
 - `configs/nasdaq100_25years.yaml` - 25-year NASDAQ-100 analysis
+- `configs/sp500_25years.yaml` - 25-year S&P 500 analysis - **NEW**
 - `configs/test_small.yaml` - 5-year test config
 
 ### Step 3: Review Analysis Reports
 Read the markdown reports to understand findings:
-- `ANALYSIS_25YEARS.md` - DJIA comprehensive results
+- `ANALYSIS_SP500_25YEARS.md` - S&P 500 comprehensive results - **NEW**
 - `ANALYSIS_NASDAQ100_25YEARS.md` - NASDAQ-100 comprehensive results
-- `EXECUTIVE_SUMMARY.md` - Stakeholder summary
+- `ANALYSIS_25YEARS.md` - DJIA comprehensive results
+- `EXECUTIVE_SUMMARY.md` - Cross-index stakeholder summary - **UPDATED**
 
 ### Step 4: Understand Known Issues & Limitations
 
 **Data Issues:**
-- Some NASDAQ-100 stocks have limited history (recent IPOs: SNOW, PLTR, DASH, ABNB, ARM, etc.)
-- SGEN and ANSS have timezone data errors
+- Some stocks have limited history (recent IPOs: SNOW, PLTR, DASH, ABNB, ARM, UBER, LYFT, COIN, etc.)
+- Some stocks have timezone data errors (BRK.B, HES, MRO, PEAK, SQ, SGEN, ANSS)
 - Survivorship bias present (using current constituents only)
 
 **Technical Constraints:**
@@ -161,8 +195,8 @@ Read the markdown reports to understand findings:
 
 If the user wants to continue development, consider:
 
-1. **Extended Universe Support**
-   - S&P 500 analysis
+1. **Extended Universe Support** ✅ **S&P 500 COMPLETE**
+   - ~~S&P 500 analysis~~ ✅ **DONE: 5,879 observations, 264 stocks**
    - Russell 2000 (small caps)
    - Sector-specific ETFs
    - International indices (FTSE, DAX, Nikkei with different holiday calendars)
@@ -235,7 +269,7 @@ If the user wants to continue development, consider:
 
 **Source Code:**
 - `src/tgalpha/cli.py` - Command-line interface
-- `src/tgalpha/universe.py` - Stock universes (DJIA, NASDAQ-100)
+- `src/tgalpha/universe.py` - Stock universes (DJIA, NASDAQ-100, S&P 500)
 - `src/tgalpha/calendar_utils.py` - NYSE calendar and business day logic
 - `src/tgalpha/holidays.py` - Thanksgiving date calculation
 - `src/tgalpha/stats.py` - Window dates and return computation
@@ -255,9 +289,10 @@ If the user wants to continue development, consider:
 
 **Documentation:**
 - `README.md` - Main documentation
-- `EXECUTIVE_SUMMARY.md` - Stakeholder summary
-- `ANALYSIS_25YEARS.md` - DJIA 25-year findings
+- `EXECUTIVE_SUMMARY.md` - Cross-index stakeholder summary
+- `ANALYSIS_SP500_25YEARS.md` - S&P 500 25-year findings
 - `ANALYSIS_NASDAQ100_25YEARS.md` - NASDAQ-100 25-year findings
+- `ANALYSIS_25YEARS.md` - DJIA 25-year findings
 - `CITATION.cff` - Academic citation
 - `LICENSE` - MIT License
 
@@ -280,6 +315,8 @@ If the user wants to continue development, consider:
 ```bash
 # Run analysis
 python -m tgalpha.cli configs/djia_25years.yaml --top=20
+python -m tgalpha.cli configs/nasdaq100_25years.yaml --top=50
+python -m tgalpha.cli configs/sp500_25years.yaml --top=50
 
 # Run tests
 pytest tests/ -v
