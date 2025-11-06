@@ -198,7 +198,7 @@ Questions, feedback, or collaboration inquiries are welcome!
 - 🐛 Report bugs or suggest features via [Issues](https://github.com/lieblm/thanksgiving-alpha/issues)
 - 📖 Share your research findings using this tool
 - 🔀 Contribute code improvements via Pull Requests
-- [Sponsor @lieblm on GitHub](https://github.com/sponsors/lieblm)
+- 🎁 [Sponsor @lieblm on GitHub](https://github.com/sponsors/lieblm)
 
 ---
 
