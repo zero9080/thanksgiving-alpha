@@ -200,7 +200,7 @@ Questions, feedback, or collaboration inquiries are welcome!
 - 🔀 Contribute code improvements via Pull Requests
 
 ### GitHub Sponsors
-[Sponsor @lieblm on GitHub](https://github.com/sponsors/lieblm) *(if you have GitHub Sponsors enabled)*
+[Sponsor @lieblm on GitHub](https://github.com/sponsors/lieblm)
 
 ---
 
