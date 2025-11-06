@@ -277,9 +277,10 @@ Neutral/Underweight:
 - Timezone errors: BRK.B, HES, MRO, PEAK, SQ (data quality issues)
 
 **Survivorship Bias:**
-- Analysis uses **current S&P 500 constituents**
-- Excludes companies that were removed or delisted
-- Likely **overstates historical returns** by 0.5-1.0% annually
+- Analysis uses **current S&P 500 constituents** (as of November 2025)
+- Excludes companies that were removed or delisted during 2000-2024 period
+- This may introduce positive bias, though magnitude is difficult to quantify without historical constituent data
+- Future analyses should consider point-in-time membership for unbiased estimates
 
 ### Data Reliability
 - **High confidence:** Stocks with 20+ years (170+ stocks)
@@ -362,13 +363,14 @@ With **5,879 observations** across **264 stocks** and **25 years**, patterns sho
 2. **Survivorship Bias Present**
    - Current constituents only analyzed
    - Failed companies excluded
-   - Returns likely overstated by 0.5-1.0%
+   - Positive bias present, but magnitude uncertain without historical membership data
 
-3. **Transaction Costs Reduce Returns**
-   - Bid-ask spreads: 0.01-0.05%
-   - Commissions (if applicable)
-   - Market impact for large orders
-   - Estimated drag: 0.10-0.25%
+3. **Transaction Costs Reduce Returns**  
+   **Note: All returns reported are gross returns (close-to-close) and do not account for:**
+   - Bid-ask spreads (typically 0.01-0.05% for liquid stocks)
+   - Commissions (varies by broker, often zero for retail traders)
+   - Market impact for large orders (depends on position size)
+   - Actual net returns will be lower after transaction costs
 
 4. **Execution Risk**
    - Holiday liquidity can be reduced
@@ -377,6 +379,9 @@ With **5,879 observations** across **264 stocks** and **25 years**, patterns sho
    - Gap risk over long weekends
 
 5. **Strategy Capacity**
+   - Small positions: No material market impact
+   - Large positions: Liquidity and market impact become constraints
+   - Capacity depends on individual stock liquidity and position sizing
    - Seasonality trades can become crowded
    - Front-running by algorithms
    - Pattern degradation if widely adopted

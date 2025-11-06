@@ -158,9 +158,10 @@ Several stocks had insufficient history for 2000-2024 period:
 - **Many tech IPOs:** Limited to 10-15 years of data
 
 ### Survivorship Bias
-- Analysis uses **current NASDAQ-100 constituents** only
-- Excludes delisted/removed companies (e.g., failed startups)
-- Likely **overstates historical returns**
+- Analysis uses **current NASDAQ-100 constituents** only (as of November 2025)
+- Excludes delisted/removed companies (e.g., companies that left the index, bankruptcies, acquisitions)
+- This may introduce positive bias, though magnitude is difficult to quantify without historical constituent data
+- Future analyses should consider point-in-time membership for unbiased estimates
 
 ### Data Completeness
 - **1,904 observations** from 96 stocks × 25 years
