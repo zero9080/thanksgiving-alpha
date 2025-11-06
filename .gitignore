@@ -1,0 +1,15 @@
+# Python
+*.pyc
+__pycache__/
+.venv/
+.dist/
+
+# Poetry lock (optional for libs)
+poetry.lock
+
+# Data
+data/cache/
+data/outputs/
+
+# Notebooks
+*.ipynb_checkpoints/
