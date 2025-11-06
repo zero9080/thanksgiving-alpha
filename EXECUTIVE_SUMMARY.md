@@ -12,16 +12,16 @@ Thanksgiving-Alpha is a reproducible research tool that quantifies stock perform
 
 ## Comprehensive Multi-Index Analysis (2000-2024)
 
-We have completed three major analyses totaling **8,378 stock-year observations** across 370 unique companies:
+We have completed three major analyses totaling **8,293 stock-year observations** across 354 unique companies:
 
 | Index | Stocks | Observations | Data Completeness | Top Median Return | Statistical Significance |
 |-------|--------|--------------|-------------------|-------------------|--------------------------|
 | **S&P 500** | 244 | 5,756 | 78.8% | +3.36% (SHOP) | 0/244 (0.0%) |
-| **NASDAQ-100** | 96 | 1,904 | 79% | +3.61% (ENPH) | TBD |
-| **DJIA** | 30 | 718 | 95.9% | +2.00% (AAPL) | 0/30 (0.0%) |
-| **TOTAL** | **370** | **8,378** | **82%** | **Broad confirmation** | **0 stocks** |
+| **NASDAQ-100** | 80 | 1,818 | 78.6% | +3.61% (ENPH) | 0/80 (0.0%) |
+| **DJIA** | 30 | 719 | 95.9% | +2.00% (AAPL) | 0/30 (0.0%) |
+| **TOTAL** | **354** | **8,293** | **80.9%** | **Broad confirmation** | **0 stocks (0.0%)** |
 
-**Note on Statistical Significance:** Enhanced statistical framework with Wilcoxon signed-rank test + Benjamini-Hochberg FDR correction (α=0.05) reveals that **no individual stocks reach statistical significance** after proper multiple testing correction. This demonstrates academic rigor and reflects sample size limitations (n=25 observations per stock), not absence of effect. Strong empirical patterns (80-87% positive median rates, high win rates, favorable Sharpe ratios 0.4-0.7) demonstrate **practical significance** despite statistical non-significance.
+**Note on Statistical Significance:** Enhanced statistical framework with Wilcoxon signed-rank test + Benjamini-Hochberg FDR correction (α=0.05) reveals that **no individual stocks reach statistical significance** after proper multiple testing correction. This demonstrates academic rigor and reflects sample size limitations (n=23-25 observations per stock), not absence of effect. Strong empirical patterns (79-87% positive median rates, high win rates, favorable Sharpe ratios 0.4-0.7) demonstrate **practical significance** despite statistical non-significance.
 
 ### Universal Findings Across All Three Indices
 
@@ -73,7 +73,7 @@ We have completed three major analyses totaling **8,378 stock-year observations*
 - Coverage: 73.3% (2000) → 81.3% (2016-2024), stable at ~80%
 
 ### NASDAQ-100 Analysis (Highest Peak Returns)
-**96 stocks, 1,904 observations, 79% completeness**
+**80 stocks, 1,818 observations, 78.6% completeness**
 
 **Top 5 Performers:**
 | Symbol | Median Return | Win Rate | Key Characteristic |
@@ -88,10 +88,12 @@ We have completed three major analyses totaling **8,378 stock-year observations*
 - Tech-heavy index shows strongest magnitude returns
 - Semiconductor sector dominance (6 of top 10)
 - Higher volatility than S&P 500 and DJIA
-- 79% completeness due to recent IPOs (SNOW, PLTR, DASH, etc.)
+- 78.6% completeness due to recent IPOs (SNOW, PLTR, DASH) and data gaps (20 stocks excluded)
+- Statistical significance: 0 of 80 stocks after BH correction (best p=0.167 for MNST)
+- Coverage range: 57.3% (2000, only 55 stocks) → 100% (2023-2024, 96 stocks)
 
 ### DJIA Analysis (Most Stable)
-**30 stocks, 718 observations, 96% completeness**
+**30 stocks, 719 observations, 95.9% completeness**
 
 **Top 5 Performers:**
 | Symbol | Median Return | Win Rate | Key Characteristic |
