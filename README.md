@@ -194,15 +194,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Questions, feedback, or collaboration inquiries are welcome!
 
 ## Support This Project
-
-If you find this tool useful for your research or analysis, consider supporting its development:
-
-### Cryptocurrency Donations
-- **Bitcoin (BTC):** `bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh`
-- **Ethereum (ETH):** `0x71C7656EC7ab88b098defB751B7401B5f6d8976F`
-- **USDC/USDT (ERC-20):** `0x71C7656EC7ab88b098defB751B7401B5f6d8976F`
-
-### Other Ways to Support
 - ⭐ Star this repository
 - 🐛 Report bugs or suggest features via [Issues](https://github.com/lieblm/thanksgiving-alpha/issues)
 - 📖 Share your research findings using this tool
