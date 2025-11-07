@@ -1,5 +1,4 @@
 from datetime import date
-import pandas as pd
 import pytest
 from tgalpha.calendar_utils import us_trading_calendar, shift_business_days
 
@@ -78,7 +77,7 @@ def test_shift_business_days_out_of_range() -> None:
     """Test that shifting out of calendar range raises an error."""
     cal = us_trading_calendar(date(2025, 1, 2), date(2025, 1, 10))
     anchor = date(2025, 1, 2)
-    
+
     # Shifting too far back should raise ValueError
     with pytest.raises(ValueError):
         shift_business_days(cal, anchor, -10)

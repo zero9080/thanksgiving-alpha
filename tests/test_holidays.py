@@ -1,5 +1,4 @@
 from datetime import date
-import pytest
 from tgalpha.holidays import thanksgiving
 
 
