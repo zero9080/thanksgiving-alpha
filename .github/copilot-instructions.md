@@ -1,6 +1,6 @@
 # GitHub Copilot Instructions - Thanksgiving-Alpha
 
-## Project Status: ✅ PRODUCTION READY (v1.0.0)
+## Project Status: ✅ PRODUCTION READY (v1.0.1)
 
 You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha"** - a quantitative finance research tool for analyzing stock performance around US Thanksgiving.
 
@@ -345,7 +345,7 @@ If the user wants to continue development, consider:
 - `tests/test_ranking.py` - 6 tests
 
 **Configuration:**
-- `pyproject.toml` - Poetry dependencies and project metadata (v1.0.0)
+- `pyproject.toml` - Poetry dependencies and project metadata (v1.0.1)
 - `.gitignore` - Excludes data/, .venv/, .DS_Store, etc.
 
 **Documentation:**
@@ -423,7 +423,7 @@ git show <commit-hash>
 ---
 
 **Last Updated:** November 7, 2025  
-**Project Status:** Production Ready (v1.0.0) - All three indices complete with statistical testing + CI/CD fully operational  
+**Project Status:** Production Ready (v1.0.1) - All three indices complete with statistical testing + CI/CD fully operational  
 **Repository:** https://github.com/lieblm/thanksgiving-alpha  
 **Author:** Martin Liebl (lieblm@gmail.com)
 

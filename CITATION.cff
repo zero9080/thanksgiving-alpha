@@ -5,8 +5,8 @@ authors:
     given-names: "Martin"
     email: "lieblm@gmail.com"
 title: "Thanksgiving-Alpha: Seasonality Research Tool for US Thanksgiving Stock Performance"
-version: 1.0.0
-date-released: 2025-11-06
+version: 1.0.1
+date-released: 2025-11-07
 url: "https://github.com/lieblm/thanksgiving-alpha"
 repository-code: "https://github.com/lieblm/thanksgiving-alpha"
 keywords:

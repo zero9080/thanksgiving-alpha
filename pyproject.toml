@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "thanksgiving-alpha"
-version = "1.0.0"
+version = "1.0.1"
 description = "Quantitative analysis tool for measuring stock performance patterns around US Thanksgiving"
 authors = ["Martin Liebl <lieblm@gmail.com>"]
 license = "MIT"
