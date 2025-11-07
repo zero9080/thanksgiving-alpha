@@ -25,7 +25,7 @@ We have completed three major analyses totaling **8,293 stock-year observations*
 
 ### S&P 500 Sampling Methodology
 
-**Why 270 stocks instead of the full 500?**
+**Why 244 stocks instead of the full 500?**
 
 The S&P 500 analysis uses a **representative 270-stock sample (54% of the index)** rather than all 500 constituents. This methodological decision balances research objectives with practical constraints:
 
