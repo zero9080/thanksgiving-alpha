@@ -5,14 +5,15 @@ Provides bootstrap confidence intervals, non-parametric tests,
 and multiple testing corrections for robust statistical inference.
 """
 
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Any
 import numpy as np
+from numpy.typing import NDArray
 from scipy import stats
 from statsmodels.stats.multitest import multipletests
 
 
 def bootstrap_confidence_interval(
-    returns: np.ndarray,
+    returns: NDArray[Any],
     statistic: str = "median",
     n_bootstrap: int = 10000,
     confidence_level: float = 0.95,
@@ -65,7 +66,7 @@ def bootstrap_confidence_interval(
     return (point_est, lower_bound, upper_bound)
 
 
-def wilcoxon_test(returns: np.ndarray, alternative: str = "greater") -> Tuple[float, float]:
+def wilcoxon_test(returns: NDArray[Any], alternative: str = "greater") -> Tuple[float, float]:
     """
     Wilcoxon signed-rank test for returns vs. zero.
 
@@ -92,7 +93,7 @@ def wilcoxon_test(returns: np.ndarray, alternative: str = "greater") -> Tuple[fl
         return (np.nan, np.nan)
 
 
-def t_test(returns: np.ndarray, alternative: str = "greater") -> Tuple[float, float]:
+def t_test(returns: NDArray[Any], alternative: str = "greater") -> Tuple[float, float]:
     """
     One-sample t-test for returns vs. zero.
 
@@ -115,7 +116,7 @@ def t_test(returns: np.ndarray, alternative: str = "greater") -> Tuple[float, fl
 
 def benjamini_hochberg_correction(
     p_values: List[float], alpha: float = 0.05
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> Tuple[NDArray[Any], NDArray[Any]]:
     """
     Apply Benjamini-Hochberg FDR correction for multiple testing.
 
@@ -142,7 +143,7 @@ def benjamini_hochberg_correction(
     return (reject, corrected_pvals)
 
 
-def compute_effect_size(returns: np.ndarray) -> float:
+def compute_effect_size(returns: NDArray[Any]) -> float:
     """
     Compute Cohen's d effect size for returns vs. zero.
 
@@ -170,7 +171,7 @@ def compute_effect_size(returns: np.ndarray) -> float:
     return float(mean_return / std_return)
 
 
-def sharpe_ratio(returns: np.ndarray, risk_free_rate: float = 0.0) -> float:
+def sharpe_ratio(returns: NDArray[Any], risk_free_rate: float = 0.0) -> float:
     """
     Compute annualized Sharpe ratio for strategy.
 
