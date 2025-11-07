@@ -110,17 +110,6 @@ With 719 observations and 83% positive rate, portfolio-level test would likely s
 
 ---
 
-## NASDAQ-100 Results
-
-*(Analysis in progress - results pending)*
-
-Expected characteristics:
-- More recent IPOs → lower data completeness (target: ~79%)
-- Higher volatility → similar significance challenges
-- Larger sample may show more significant stocks
-
----
-
 ## S&P 500 Results
 
 *(Analysis in progress - results pending)*
