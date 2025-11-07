@@ -42,7 +42,7 @@ def bootstrap_confidence_interval(
         stat_func = np.median
     elif statistic == "mean":
         point_est = np.mean(returns)
-        stat_func = np.mean
+        stat_func = np.mean  # type: ignore[assignment]
     else:
         raise ValueError(f"Unknown statistic: {statistic}")
 
@@ -59,8 +59,8 @@ def bootstrap_confidence_interval(
     lower_percentile = (alpha / 2) * 100
     upper_percentile = (1 - alpha / 2) * 100
 
-    lower_bound = np.percentile(bootstrap_stats, lower_percentile)
-    upper_bound = np.percentile(bootstrap_stats, upper_percentile)
+    lower_bound = float(np.percentile(bootstrap_stats, lower_percentile))
+    upper_bound = float(np.percentile(bootstrap_stats, upper_percentile))
 
     return (point_est, lower_bound, upper_bound)
 
@@ -167,7 +167,7 @@ def compute_effect_size(returns: np.ndarray) -> float:
         return np.nan
 
     # Cohen's d: (mean - 0) / std
-    return mean_return / std_return
+    return float(mean_return / std_return)
 
 
 def sharpe_ratio(returns: np.ndarray, risk_free_rate: float = 0.0) -> float:
@@ -193,4 +193,4 @@ def sharpe_ratio(returns: np.ndarray, risk_free_rate: float = 0.0) -> float:
         return np.nan
 
     # For annual strategy: Sharpe = (mean - rf) / std
-    return (mean_return - risk_free_rate) / std_return
+    return float((mean_return - risk_free_rate) / std_return)

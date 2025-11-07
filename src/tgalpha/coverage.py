@@ -76,20 +76,28 @@ def format_coverage_table(coverage: pl.DataFrame) -> str:
     lines.append("|------|--------|--------------|")
 
     for row in coverage.iter_rows(named=True):
-        year = row["year"]
-        n_stocks = row["n_stocks"]
-        pct = row["pct_complete"]
+        year = int(row["year"])
+        n_stocks = int(row["n_stocks"])
+        pct = float(row["pct_complete"])
         lines.append(f"| {year} | {n_stocks} | {pct:.1f}% |")
 
     # Add summary statistics
     lines.append("")
-    lines.append(f"**Average coverage:** {coverage['pct_complete'].mean():.1f}%  ")
-    lines.append(f"**Median coverage:** {coverage['pct_complete'].median():.1f}%  ")
+    lines.append(f"**Average coverage:** {float(coverage['pct_complete'].mean()):.1f}%  ")  # type: ignore[arg-type]
+    lines.append(f"**Median coverage:** {float(coverage['pct_complete'].median()):.1f}%  ")  # type: ignore[arg-type]
+
+    min_year = int(
+        coverage.filter(pl.col("pct_complete") == pl.col("pct_complete").min())["year"][0]
+    )
+    max_year = int(
+        coverage.filter(pl.col("pct_complete") == pl.col("pct_complete").max())["year"][0]
+    )
+
     lines.append(
-        f"**Min coverage:** {coverage['pct_complete'].min():.1f}% (year {coverage.filter(pl.col('pct_complete') == pl.col('pct_complete').min())['year'][0]})  "
+        f"**Min coverage:** {float(coverage['pct_complete'].min()):.1f}% (year {min_year})  "  # type: ignore[arg-type]
     )
     lines.append(
-        f"**Max coverage:** {coverage['pct_complete'].max():.1f}% (year {coverage.filter(pl.col('pct_complete') == pl.col('pct_complete').max())['year'][0]})  "
+        f"**Max coverage:** {float(coverage['pct_complete'].max()):.1f}% (year {max_year})  "  # type: ignore[arg-type]
     )
 
     return "\n".join(lines)

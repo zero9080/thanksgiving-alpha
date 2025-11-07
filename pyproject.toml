@@ -64,8 +64,22 @@ line-length = 100
 line-length = 100
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = true
+# Ignore missing stubs for third-party libraries
+ignore_missing_imports = false
+# Allow untyped calls to third-party libraries
+disallow_untyped_calls = false
+# Suppress specific error types for external libraries
+[[tool.mypy.overrides]]
+module = [
+    "pandas.*",
+    "scipy.*",
+    "statsmodels.*",
+    "yfinance.*",
+    "yaml.*",
+]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core>=1.9.0"]

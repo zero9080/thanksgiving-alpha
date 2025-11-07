@@ -1,5 +1,6 @@
 from datetime import date
 import pandas as pd
+from typing import cast
 
 
 def thanksgiving(year: int) -> date:
@@ -24,4 +25,4 @@ def thanksgiving(year: int) -> date:
     ]
 
     # Return the 4th Thursday (0-indexed: index 3)
-    return thursdays[3].date()
+    return cast(date, thursdays[3].date())

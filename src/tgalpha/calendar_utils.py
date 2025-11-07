@@ -18,7 +18,7 @@ def _third_monday(month: int) -> Holiday:
     )
 
 
-class NYSECalendar(USFederalHolidayCalendar):
+class NYSECalendar(USFederalHolidayCalendar):  # type: ignore[misc]
     """NYSE trading calendar with market holidays.
 
     Note: Black Friday (day after Thanksgiving) is a half-day trading session
