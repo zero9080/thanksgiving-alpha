@@ -136,7 +136,7 @@ With 719 observations and 83% positive rate, portfolio-level test would likely s
 ## S&P 500 Results (2000-2024)
 
 **Data Summary:**
-- 244 stocks analyzed (from 300-stock universe)
+- 244 stocks analyzed (from 500-stock universe)
 - 5,756 total observations
 - Average 23.6 years of data per stock
 - 78.8% average data completeness
@@ -177,7 +177,7 @@ With 719 observations and 83% positive rate, portfolio-level test would likely s
 **Max coverage:** 81.3% (year 2016)
 
 **Data Gaps Explanation:**
-- 56 stocks from 300-stock universe excluded (insufficient observations: n < 10)
+- 56 stocks from 500-stock universe excluded (insufficient observations: n < 10)
 - Recent IPOs: SNOW (2020), PLTR (2020), COIN (2021), DASH (2020), ARM (2023)
 - Timezone errors: BRK.B, HES, MRO, PEAK, SQ (data quality issues)
 - Spinoffs and recent additions to S&P 500
