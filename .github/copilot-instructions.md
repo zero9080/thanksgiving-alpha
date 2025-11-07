@@ -15,7 +15,7 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
 
 ---
 
-## 📊 Current State (as of November 6, 2025)
+## 📊 Current State (as of November 7, 2025)
 
 ### ✅ Completed Features
 
@@ -38,9 +38,9 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
 3. **Testing & Quality**
    - **28 passing unit tests** (pytest)
    - Test coverage: holidays, calendar, stats, ranking, statistical tests
-   - Typed with mypy (strict mode)
+   - Typed with mypy (strict mode) with proper numpy NDArray annotations
    - Linted with ruff and black
-   - All CI checks passing
+   - **All CI checks passing** ✅ (as of Nov 7, 2025)
 
 4. **CLI & Configuration**
    - Command: `python -m tgalpha.cli <config> --top=N --statistics --show-coverage`
@@ -50,12 +50,12 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
 
 5. **Documentation**
    - README.md (comprehensive usage guide)
-   - EXECUTIVE_SUMMARY.md (cross-index stakeholder overview with sampling methodology) - **UPDATED**
-   - ANALYSIS_SP500_25YEARS.md (S&P 500: 5,756 observations, 244 stocks, with sampling rationale) - **UPDATED**
-   - ANALYSIS_NASDAQ100_25YEARS.md (NASDAQ-100: 1,818 observations, 80 stocks) - **UPDATED**
-   - ANALYSIS_25YEARS.md (DJIA: 719 observations, 30 stocks) - **UPDATED**
-   - STATISTICAL_RESULTS_SUMMARY.md (comprehensive statistical testing documentation) - **NEW**
-   - REFERENCES.md (10 academic citations with DOIs) - **NEW**
+   - EXECUTIVE_SUMMARY.md (cross-index stakeholder overview with sampling methodology)
+   - ANALYSIS_SP500_25YEARS.md (S&P 500: 5,756 observations, 244 stocks, with sampling rationale)
+   - ANALYSIS_NASDAQ100_25YEARS.md (NASDAQ-100: 1,818 observations, 80 stocks)
+   - ANALYSIS_25YEARS.md (DJIA: 719 observations, 30 stocks)
+   - STATISTICAL_RESULTS_SUMMARY.md (comprehensive statistical testing documentation)
+   - REFERENCES.md (10 academic citations with DOIs)
    - CITATION.cff (academic citation support)
    - .github/FUNDING.yml (donation/sponsorship links)
 
@@ -67,6 +67,22 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
    - MIT License
    - All analyses complete with statistical rigor
 
+7. **CI/CD Pipeline** ✅ **FULLY OPERATIONAL**
+   - GitHub Actions workflow (.github/workflows/ci.yml)
+   - Runs on every push and pull request
+   - Python 3.12 environment (matches local development)
+   - Four-stage validation:
+     1. Ruff linting (code quality checks)
+     2. Black formatting (code style consistency)
+     3. Mypy type checking (strict mode with proper type annotations)
+     4. Pytest test suite (28 tests)
+   - **Recent fixes (Nov 7, 2025):**
+     - Fixed 12 unused import linting errors
+     - Updated Python version from 3.11 → 3.12
+     - Configured mypy to handle third-party library stubs (pandas, scipy, statsmodels, yfinance, yaml)
+     - Added proper numpy NDArray type annotations (replaced `np.ndarray` with `NDArray[Any]`)
+     - All type checking errors resolved
+
 ---
 
 ## 🔧 Technical Implementation Details
@@ -77,6 +93,7 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
    - NYSECalendar class with 10 holidays
    - `shift_business_days()` function handles non-trading days
    - Black Friday is NOT a holiday (half-day session counted as trading day)
+   - **Type Safety:** Added `# type: ignore[misc]` for pandas USFederalHolidayCalendar inheritance
 
 2. **Data Provider** (`src/tgalpha/data_providers/yahoo.py`)
    - **Critical:** Use `auto_adjust=True` to avoid MultiIndex column issues
@@ -88,13 +105,25 @@ You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha
    - `compute_return()`: Year-tracked returns with null checks
    - Simple returns (not log returns)
 
-4. **Ranking System** (`src/tgalpha/ranking.py`)
+4. **Statistical Tests** (`src/tgalpha/stats_tests.py`)
+   - **Type Safety:** Uses `NDArray[Any]` from `numpy.typing` for all array parameters
+   - Bootstrap confidence intervals with explicit float casts
+   - Wilcoxon signed-rank test and t-test implementations
+   - Benjamini-Hochberg FDR correction for multiple testing
+   - Effect size (Cohen's d) and Sharpe ratio calculations
+
+5. **Ranking System** (`src/tgalpha/ranking.py`)
    - Aggregates: n, median_return, avg_return, win_rate, std
    - Sorts by: [median_return, win_rate, avg_return]
    - Filters: min_trades parameter (default 10)
 
-5. **Python Environment**
-   - Python 3.12.6 with Poetry
+6. **Coverage Analysis** (`src/tgalpha/coverage.py`)
+   - **Type Safety:** Explicit int/float casts for polars DataFrame values
+   - Added `# type: ignore[arg-type]` for polars aggregation methods
+   - Computes year-by-year data completeness
+
+7. **Python Environment**
+   - Python 3.12.6 with Poetry (3.12.12 on CI)
    - Key dependencies: polars 1.35.1, pandas 2.3.3, typer 0.7.0, yfinance 0.2.66
    - Virtual environment at `.venv/`
 
@@ -210,9 +239,16 @@ Read the markdown reports to understand findings:
 - Yahoo Finance auto_adjust=True required for proper column handling
 - Black Friday is half-day (1:00 PM ET close) but counted as trading day
 
+**Type Checking Best Practices:**
+- Use `NDArray[Any]` from `numpy.typing` instead of `np.ndarray` for function signatures
+- Add explicit int/float casts for polars DataFrame aggregations (.mean(), .median(), .min(), .max())
+- Use `# type: ignore[misc]` for pandas class inheritance (USFederalHolidayCalendar)
+- Use `# type: ignore[arg-type]` for polars aggregation methods when mypy is too strict
+- Configure mypy in pyproject.toml to ignore missing stubs for third-party libraries
+
 **Test Coverage:**
 - Run `pytest tests/ -v` to verify all 28 tests pass
-- Coverage includes: holidays (6), calendar (9), stats (8), ranking (6)
+- Coverage includes: holidays (6), calendar (9), stats (8), ranking (6), statistical tests (5)
 
 ---
 
@@ -376,7 +412,7 @@ git show <commit-hash>
 5. **Ask user for context** - What do they want to work on next?
 
 **Common continuation points:**
-- Adding new universes (S&P 500, Russell 2000)
+- Adding new universes (Russell 2000, sector ETFs)
 - Extending analysis windows (different day combinations)
 - Adding visualization/dashboards
 - Implementing backtesting strategies
@@ -386,8 +422,8 @@ git show <commit-hash>
 
 ---
 
-**Last Updated:** November 6, 2025  
-**Project Status:** Production Ready (v1.0.0) - All three indices complete with statistical testing  
+**Last Updated:** November 7, 2025  
+**Project Status:** Production Ready (v1.0.0) - All three indices complete with statistical testing + CI/CD fully operational  
 **Repository:** https://github.com/lieblm/thanksgiving-alpha  
 **Author:** Martin Liebl (lieblm@gmail.com)
 
