@@ -110,18 +110,6 @@ With 719 observations and 83% positive rate, portfolio-level test would likely s
 
 ---
 
-## S&P 500 Results
-
-*(Analysis in progress - results pending)*
-
-Expected characteristics:
-- 264 stocks analyzed (36 filtered for <10 observations)
-- 5,879 total observations
-- Broader sample → potentially more stocks reaching significance
-- Lower median returns than DJIA/NASDAQ-100 (regression to mean)
-
----
-
 ## Methodological Notes
 
 **Bootstrap Confidence Intervals:**
