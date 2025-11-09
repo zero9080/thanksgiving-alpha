@@ -238,6 +238,12 @@ Read the markdown reports to understand findings:
 - Typer 0.7.0 required (NOT 0.12.5) - TyperArgument.make_metavar() compatibility
 - Yahoo Finance auto_adjust=True required for proper column handling
 - Black Friday is half-day (1:00 PM ET close) but counted as trading day
+- **S&P 500 Universe:** Full 500-stock analysis is impractical due to:
+  - Runtime: 45+ minutes vs. ~20 minutes for 270-stock sample
+  - Data quality: Many recent IPOs lack 25-year history (SNOW, PLTR, DASH, COIN, ARM, UBER, etc.)
+  - Completeness: Full 500 would yield ~65-70% completeness vs. 78.8% with curated 270-stock sample
+  - **Decision:** 270-stock representative sample (54% of index) balances data quality, runtime, and statistical robustness
+  - Methodology is transparent in analysis documentation
 
 **Type Checking Best Practices:**
 - Use `NDArray[Any]` from `numpy.typing` instead of `np.ndarray` for function signatures
@@ -257,7 +263,8 @@ Read the markdown reports to understand findings:
 If the user wants to continue development, consider:
 
 1. **Extended Universe Support** ✅ **S&P 500 COMPLETE**
-   - ~~S&P 500 analysis~~ ✅ **DONE: 5,879 observations, 264 stocks**
+   - ~~S&P 500 analysis~~ ✅ **DONE: 5,756 observations, 244 stocks from 270-stock sample**
+   - **Note:** Full 500-stock S&P 500 analysis attempted but impractical (45+ min runtime, poor data completeness)
    - Russell 2000 (small caps)
    - Sector-specific ETFs
    - International indices (FTSE, DAX, Nikkei with different holiday calendars)
