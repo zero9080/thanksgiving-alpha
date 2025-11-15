@@ -1,21 +1,121 @@
-# GitHub Copilot Instructions - Thanksgiving-Alpha
+# Thanksgiving-Alpha - AI Assistant Instructions
 
-## Project Status: ✅ PRODUCTION READY (v1.0.1)
+**CRITICAL:** AI assistant's primary reference for session continuity.  
+**Audience:** Claude Sonnet 4.5 / GitHub Copilot  
+**Purpose:** Prevent repeated mistakes, maintain context, enforce best practices  
+**For Humans:** See README.md or EXECUTIVE_SUMMARY.md
 
-You are assisting in a **Python/Poetry** repository called **"thanksgiving-alpha"** - a quantitative finance research tool for analyzing stock performance around US Thanksgiving.
+---
+**Metadata:**
+- Version: 2.0
+- Last Updated: 2025-11-15
+- Production Version: 1.0.1
+- Language: Python 3.12
+- Package Manager: Poetry
+---
+
+## ⚡ [P0] CORE COLLABORATION PRINCIPLES
+
+**TRIGGER:** Every interaction with user  
+**VIOLATION CONSEQUENCE:** Loss of trust, broken git history, chaos
+
+### Rule #1: Test-First Workflow
+**NEVER COMMIT OR PUSH UNTESTED CODE**
+
+**Process (NO EXCEPTIONS):**
+```
+1. AI: Make code changes
+2. AI: "Run these tests: pytest tests/test_X.py -v"
+3. USER: Execute tests → confirm results
+4. USER: Reply "OK" or describe problem
+5. AI: ONLY after "OK" → git commit && git push
+```
+
+**Violations to Prevent:**
+- ❌ Commit before user confirms tests pass
+- ❌ Skip test execution for "small" changes
+- ❌ Assume changes work without explicit confirmation
+- ❌ Push code that breaks CI pipeline
+
+**Reason:** Untested code in git history = broken builds = wasted time
 
 ---
 
-## 🎯 Project Overview
+### Rule #2: Work is Sequential Dialog
+**NO PARALLEL WORK - WAIT FOR EACH OTHER**
 
-**Purpose:** Reproducible research tool that ranks stocks by performance around US Thanksgiving holiday.  
-**Methodology:** Compute per-year returns from Open price X business days before Thanksgiving to Close price Y business days after.  
-**Trading Window:** Configurable (default: 3 days before → 1 day after, including Black Friday half-day session at 1:00 PM ET close).  
-**Output:** CSV, Parquet, and HTML reports with statistical rankings.
+**Correct Pattern:**
+```
+AI: Propose change A
+USER: Execute A → confirm
+AI: Propose change B
+USER: Execute B → confirm
+```
+
+**Incorrect Pattern:**
+```
+❌ AI: "Do X. Meanwhile I'll do Y..."
+❌ Multiple instructions without waiting
+❌ "While you do that, I'll..."
+```
+
+**Reason:** Parallel work = lost context, conflicting changes, confusion
 
 ---
 
-## 📊 Current State (as of November 7, 2025)
+### Rule #3: Respect Task Order
+**MULTIPLE TASKS = ONE AT A TIME, PRESERVE ORDER**
+
+**When user provides numbered list:**
+```
+User: "1. Change X, 2. Add Y, 3. Test Z"
+
+→ Implement 1 ONLY
+→ Wait for confirmation
+→ Then implement 2
+→ Wait for confirmation
+→ Then implement 3
+```
+
+**Exception:** If different order is more efficient:
+```
+→ STOP and ASK: "Would it be better to do 2 before 1 because [reason]?"
+→ Wait for user decision
+→ Then proceed
+```
+
+**Reason:** User's order may have dependencies AI doesn't understand
+
+---
+
+## 🔴 [P0] CRITICAL CONSTRAINTS - NEVER VIOLATE
+
+### Python & Poetry Configuration
+**TRIGGER:** Any package installation, version changes, or dependency updates
+
+```yaml
+CORRECT:
+  python: 3.12.6 (local), 3.12.12 (CI)
+  package_manager: Poetry
+  virtual_env: .venv/
+  dependencies: pyproject.toml (version 1.0.1)
+  
+CRITICAL_VERSIONS:
+  typer: ^0.12.3 (with [all] extras)
+  yfinance: auto_adjust=True REQUIRED
+  polars: ^1.9.0
+  
+TYPE_SAFETY:
+  numpy_arrays: NDArray[Any] from numpy.typing
+  polars_casts: Explicit int()/float() for aggregations
+  mypy: Strict mode with third-party library overrides
+```
+
+**Why Critical:** Wrong yfinance usage = MultiIndex issues, missing type annotations = CI fails
+
+---
+
+## 📊 Current State (as of November 15, 2025)
 
 ### ✅ Completed Features
 
@@ -196,75 +296,338 @@ Of the 270-stock sample, **244 were successfully analyzed** (26 excluded due to 
 
 ---
 
-## 🔧 Technical Implementation Details
+## 📋 [P1] TECHNICAL REFERENCE
 
-### Step 1: Check Recent History
-**ALWAYS start by reviewing git commit history:**
-```bash
-git log --oneline -20
-git log --since="2025-11-01" --pretty=format:"%h - %an, %ar : %s"
+**Query This Section:** When writing code, checking file paths, understanding architecture
+
+### Project Structure
+```
+/Users/lieblm/Documents/GitHub/thanksgiving-alpha/
+├── .github/
+│   ├── workflows/ci.yml          # CI/CD pipeline
+│   ├── copilot-instructions.md   # THIS FILE
+│   └── FUNDING.yml               # Donation links
+├── configs/
+│   ├── djia_25years.yaml         # DJIA 2000-2024
+│   ├── nasdaq100_25years.yaml    # NASDAQ-100 2000-2024
+│   ├── sp500_25years.yaml        # S&P 500 2000-2024 (270-stock sample)
+│   └── test_small.yaml           # 5-year test config
+├── src/tgalpha/
+│   ├── cli.py                    # Typer CLI
+│   ├── universe.py               # Stock lists (DJIA/NASDAQ/SP500)
+│   ├── calendar_utils.py         # NYSE calendar + business day logic
+│   ├── holidays.py               # Thanksgiving date calculation
+│   ├── stats.py                  # Window dates + return computation
+│   ├── stats_tests.py            # Wilcoxon + BH FDR correction
+│   ├── ranking.py                # Aggregation + sorting
+│   ├── report.py                 # CSV/Parquet/HTML exports
+│   ├── coverage.py               # Data completeness analysis
+│   └── data_providers/
+│       ├── base.py               # Abstract provider interface
+│       └── yahoo.py              # Yahoo Finance (auto_adjust=True)
+├── tests/
+│   ├── test_holidays.py          # 6 tests
+│   ├── test_calendar_utils.py    # 9 tests
+│   ├── test_stats.py             # 8 tests
+│   └── test_ranking.py           # 6 tests
+├── pyproject.toml                # Poetry config (v1.0.1)
+├── README.md                     # Main documentation
+├── EXECUTIVE_SUMMARY.md          # Stakeholder overview
+└── LICENSE                       # MIT License
 ```
 
-**Key commits to review:**
-- Latest NASDAQ-100 analysis
-- Public release preparation
-- Black Friday half-day corrections
-- 25-year DJIA analysis
-- Initial CLI implementation and bug fixes
+### Key Architecture Components
 
-### Step 2: Review Current Configuration
-Check existing config files:
-- `configs/example_djia.yaml` - Original DJIA config
-- `configs/djia_25years.yaml` - 25-year DJIA analysis
-- `configs/nasdaq100_25years.yaml` - 25-year NASDAQ-100 analysis
-- `configs/sp500_25years.yaml` - 25-year S&P 500 analysis - **NEW**
-- `configs/test_small.yaml` - 5-year test config
+#### Trading Calendar (`calendar_utils.py`)
+```python
+class NYSECalendar:
+    """10 federal holidays, NO Black Friday"""
+    
+def shift_business_days(date, days, calendar):
+    """Handles weekends + holidays + direction"""
+    # Black Friday = trading day (half-day session)
+```
 
-### Step 3: Review Analysis Reports
-Read the markdown reports to understand findings:
-- `ANALYSIS_SP500_25YEARS.md` - S&P 500 comprehensive results - **NEW**
-- `ANALYSIS_NASDAQ100_25YEARS.md` - NASDAQ-100 comprehensive results
-- `ANALYSIS_25YEARS.md` - DJIA comprehensive results
-- `EXECUTIVE_SUMMARY.md` - Cross-index stakeholder summary - **UPDATED**
+**Type Safety Note:** Uses `# type: ignore[misc]` for pandas USFederalHolidayCalendar inheritance
 
-### Step 4: Understand Known Issues & Limitations
+#### Data Provider (`yahoo.py`)
+```python
+def get_ohlc(symbol, start_date, end_date):
+    # CRITICAL: auto_adjust=True
+    data = yf.download(symbol, start=start, end=end, auto_adjust=True)
+    # Avoids MultiIndex columns
+    # 7-day buffer around window
+```
 
-**Data Issues:**
-- Some stocks have limited history (recent IPOs: SNOW, PLTR, DASH, ABNB, ARM, UBER, LYFT, COIN, etc.)
-- Some stocks have timezone data errors (BRK.B, HES, MRO, PEAK, SQ, SGEN, ANSS)
-- Survivorship bias present (using current constituents only)
+#### Statistics (`stats.py` + `stats_tests.py`)
+```python
+# stats.py
+def holiday_window_dates(year, days_before, days_after, calendar):
+    """Calculates trading window around Thanksgiving"""
+    
+def compute_return(data, open_date, close_date):
+    """Year-tracked returns with null checks"""
+    # Simple returns: (close / open - 1) * 100
 
-**Technical Constraints:**
-- Typer 0.7.0 required (NOT 0.12.5) - TyperArgument.make_metavar() compatibility
-- Yahoo Finance auto_adjust=True required for proper column handling
-- Black Friday is half-day (1:00 PM ET close) but counted as trading day
-- **S&P 500 Universe:** Full 500-stock analysis is impractical due to:
-  - Runtime: 45+ minutes vs. ~20 minutes for 270-stock sample
-  - Data quality: Many recent IPOs lack 25-year history (SNOW, PLTR, DASH, COIN, ARM, UBER, etc.)
-  - Completeness: Full 500 would yield ~65-70% completeness vs. 78.8% with curated 270-stock sample
-  - **Decision:** 270-stock representative sample (54% of index) balances data quality, runtime, and statistical robustness
-  - Methodology is transparent in analysis documentation
+# stats_tests.py (NDArray[Any] for type safety)
+def wilcoxon_test(returns: NDArray[Any]) -> Tuple[float, float]:
+    """Wilcoxon signed-rank test"""
+    
+def benjamini_hochberg_correction(p_values: NDArray[Any], alpha: float):
+    """BH FDR correction for multiple testing"""
+```
 
-**Type Checking Best Practices:**
-- Use `NDArray[Any]` from `numpy.typing` instead of `np.ndarray` for function signatures
-- Add explicit int/float casts for polars DataFrame aggregations (.mean(), .median(), .min(), .max())
-- Use `# type: ignore[misc]` for pandas class inheritance (USFederalHolidayCalendar)
-- Use `# type: ignore[arg-type]` for polars aggregation methods when mypy is too strict
-- Configure mypy in pyproject.toml to ignore missing stubs for third-party libraries
-
-**Test Coverage:**
-- Run `pytest tests/ -v` to verify all 28 tests pass
-- Coverage includes: holidays (6), calendar (9), stats (8), ranking (6), statistical tests (5)
+### Known Limitations
+```yaml
+data_limitations:
+  survivorship_bias: Using present-day constituents
+  recent_ipos: Insufficient history (SNOW, PLTR, DASH, COIN, ARM)
+  yahoo_errors: Some stocks have timezone issues (BRK.B, HES, MRO)
+  
+sp500_sampling:
+  current: 270-stock representative sample (54% of index)
+  rationale: Data quality (78.8%) vs full 500 (~65-70%)
+  runtime: ~20 min vs 45+ min for full 500
+  trade_off: Liquidity focus, may miss smallest constituents
+  
+statistical:
+  sample_size: n=23-25 observations per stock
+  significance: 0/354 stocks after BH FDR correction
+  interpretation: Proper academic rigor, not absence of effect
+```
 
 ---
 
-## 🎯 Potential Future Enhancements
+## 🔀 [P2] DECISION TREES
 
-If the user wants to continue development, consider:
+**Query This Section:** When encountering common problems
 
-1. **Extended Universe Support** ✅ **S&P 500 COMPLETE**
-   - ~~S&P 500 analysis~~ ✅ **DONE: 5,756 observations, 244 stocks from 270-stock sample**
-   - **Note:** Full 500-stock S&P 500 analysis attempted but impractical (45+ min runtime, poor data completeness)
+### When Tests Fail
+
+```
+START: pytest shows failures
+
+├─ Type checking errors (mypy)?
+│  ├─ numpy.ndarray → Use NDArray[Any] from numpy.typing
+│  ├─ polars aggregations → Add explicit int()/float() casts
+│  └─ pandas inheritance → Add # type: ignore[misc]
+
+├─ Data quality issues?
+│  ├─ Check Yahoo Finance response (empty DataFrame?)
+│  ├─ Verify auto_adjust=True in yfinance call
+│  └─ Test with test_small.yaml (5-year window)
+
+├─ Calendar logic errors?
+│  ├─ Black Friday counted correctly? (half-day = trading day)
+│  ├─ Weekend shifts working? (shift_business_days)
+│  └─ Holiday detection accurate? (10 federal holidays)
+
+└─ Statistical test issues?
+   ├─ Check sample size (n >= 10 for Wilcoxon)
+   ├─ Verify return distribution (outliers?)
+   └─ BH correction working? (sorted p-values)
+```
+
+### When Adding New Universe
+
+```
+START: User wants to add Russell 2000, sector ETFs, etc.
+
+├─ Create new list in universe.py
+│  ├─ Follow existing pattern (DJIA, NASDAQ100, SP500)
+│  ├─ Include stock symbols only
+│  └─ Document source and date
+
+├─ Create config file
+│  ├─ Copy existing YAML (e.g., djia_25years.yaml)
+│  ├─ Update universe name
+│  └─ Set appropriate min_trades threshold
+
+├─ Run analysis
+│  ├─ Test with small date range first (2020-2024)
+│  ├─ Check data completeness
+│  └─ Review top 10 performers (sanity check)
+
+└─ Document findings
+   ├─ Create ANALYSIS_[UNIVERSE]_[YEARS].md
+   └─ Update EXECUTIVE_SUMMARY.md
+```
+
+### When to Ask vs Continue
+
+```
+ASK USER:
+├─ Modifying trading calendar logic
+├─ Changing statistical methodology
+├─ Adding dependencies (new Python packages)
+├─ Altering universe definitions
+├─ Unclear requirement or ambiguous request
+└─ Multiple valid approaches exist
+
+CONTINUE WITHOUT ASKING:
+├─ Obvious syntax error or typo
+├─ Following established code pattern
+├─ Applying documented best practice
+├─ Fixing linting/formatting issues
+└─ Git history shows clear precedent
+```
+
+---
+
+## 🐛 [P2] TOP 5 COMMON MISTAKES
+
+**Query This Section:** Before implementing similar features
+
+### 1. Wrong Typer Version (OBSOLETE - NOW USING 0.12.3)
+**Historical Note:** Version 0.7.0 was previously required due to TyperArgument.make_metavar() compatibility issues. Project now uses typer 0.12.3 with [all] extras as of pyproject.toml update.
+
+---
+
+### 2. Yahoo Finance auto_adjust=False
+**Symptom:** MultiIndex columns, KeyError on 'Close' or 'Open'  
+**Trigger:** Calling yf.download()
+
+```python
+# WRONG
+data = yf.download(symbol, start=start, end=end)
+# Returns MultiIndex: ('Close', 'AAPL')
+
+# CORRECT
+data = yf.download(symbol, start=start, end=end, auto_adjust=True)
+# Returns simple columns: 'Close', 'Open'
+```
+
+**Prevention:** Grep for `yf.download` before adding new data fetching code
+
+---
+
+### 3. Using np.ndarray Instead of NDArray[Any]
+**Symptom:** mypy strict mode errors: "Missing type parameters for generic type"  
+**Trigger:** Function signatures with numpy arrays
+
+```python
+# WRONG
+def wilcoxon_test(returns: np.ndarray) -> dict:
+    pass
+
+# CORRECT
+from numpy.typing import NDArray
+from typing import Any
+
+def wilcoxon_test(returns: NDArray[Any]) -> dict:
+    pass
+```
+
+**Prevention:** Always import NDArray[Any] from numpy.typing
+
+---
+
+### 4. Not Checking Git History
+**Symptom:** Re-implementing existing patterns, breaking working code  
+**Trigger:** Before implementing ANY feature
+
+```bash
+# Check if feature exists
+git log --grep="calendar"
+git log --grep="statistical"
+
+# Find similar patterns
+git log --all -- src/tgalpha/stats.py
+
+# Understand why it was done
+git show <hash>
+```
+
+**Rule:** Always search git history before coding
+
+---
+
+### 5. Pushing Untested Code
+**Symptom:** CI pipeline fails, broken main branch, wasted time  
+**Trigger:** Before git push
+
+```bash
+# ALWAYS RUN BEFORE PUSHING:
+pytest tests/ -v           # 28 tests must pass
+ruff check src/ tests/     # Zero errors
+black src/ tests/ --check  # Properly formatted
+mypy src/                  # Zero type errors
+
+# THEN AND ONLY THEN:
+git push
+```
+
+**Rule:** Never push without local validation
+
+---
+
+## 📚 [P2] CODE PATTERNS
+
+**Query This Section:** When implementing similar functionality
+
+### Type Safety Pattern
+```python
+# Import proper types
+from numpy.typing import NDArray
+from typing import Any
+
+# Function signatures
+def compute_statistic(returns: NDArray[Any]) -> float:
+    # Explicit casts for numpy operations
+    result = float(np.mean(returns))
+    return result
+
+# Polars DataFrame casts
+df = pl.DataFrame({"year": [2020, 2021]})
+year_value = int(df.filter(pl.col("year") == 2020).select("year").row(0)[0])
+
+# Type ignore comments (when necessary)
+class NYSECalendar(USFederalHolidayCalendar):  # type: ignore[misc]
+    """Pandas inheritance pattern"""
+```
+
+### Testing Pattern
+```python
+# Test structure
+def test_feature_name():
+    # Arrange
+    input_data = create_test_data()
+    
+    # Act
+    result = function_under_test(input_data)
+    
+    # Assert
+    assert result == expected_value
+    assert len(result) > 0
+    # Use pytest.approx for floats
+    assert result["return"] == pytest.approx(1.5, abs=0.01)
+```
+
+### Error Handling Pattern
+```python
+def fetch_data(symbol: str) -> pl.DataFrame:
+    """Fetch data with graceful degradation"""
+    try:
+        data = yf.download(symbol, ..., auto_adjust=True)
+        if data.empty:
+            logger.warning(f"No data for {symbol}")
+            return pl.DataFrame()
+        return convert_to_polars(data)
+    except Exception as e:
+        logger.error(f"Error fetching {symbol}: {e}")
+        return pl.DataFrame()
+```
+
+---
+
+## 🎯 [P3] FUTURE ENHANCEMENTS ROADMAP
+
+**Query This Section:** When user asks "what's next" or "what could we add"
+
+### Phase 1: Extended Universes (Priority)
+- ✅ **S&P 500** - COMPLETE (5,756 observations, 244 stocks from 270-stock sample)
+- ✅ **NASDAQ-100** - COMPLETE (1,818 observations, 80 stocks)
+- ✅ **DJIA** - COMPLETE (719 observations, 30 stocks)
    - Russell 2000 (small caps)
    - Sector-specific ETFs
    - International indices (FTSE, DAX, Nikkei with different holiday calendars)
@@ -299,6 +662,192 @@ If the user wants to continue development, consider:
    - Pre-market/after-hours data
    - Other holiday effects (Christmas, July 4th, etc.)
    - International holiday calendars
+
+---
+
+## 🔍 [P3] QUICK COMMANDS
+
+**Query This Section:** When needing specific commands
+
+### Git Commands
+```bash
+# Recent changes
+git log --oneline -20
+git log --since="2025-11-01" --pretty=format:"%h - %an, %ar : %s"
+
+# Search commits
+git log --grep="statistical"
+git log --all -- src/tgalpha/stats.py
+
+# View specific commit
+git show <hash>
+git show --stat <hash>
+
+# Compare versions
+git diff v1.0.0 v1.0.1
+git diff <hash1> <hash2> -- src/tgalpha/
+
+# Investigate
+git blame src/tgalpha/calendar_utils.py
+```
+
+### Poetry Commands
+```bash
+# Install dependencies
+poetry install
+
+# Add package
+poetry add package-name
+
+# Update packages
+poetry update
+
+# Show installed packages
+poetry show --tree
+
+# Activate virtual environment
+poetry shell
+```
+
+### Testing & Quality
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run specific test file
+pytest tests/test_holidays.py -v
+
+# Run with coverage
+pytest tests/ --cov=src/tgalpha --cov-report=term-missing
+
+# Linting
+ruff check src/ tests/
+ruff check . --fix  # Auto-fix
+
+# Formatting
+black src/ tests/
+black src/ tests/ --check  # Check only
+
+# Type checking
+mypy src/
+```
+
+### Analysis Commands
+```bash
+# Run analysis
+python -m tgalpha.cli configs/sp500_25years.yaml --top=50
+
+# With statistical tests
+python -m tgalpha.cli configs/nasdaq100_25years.yaml --statistics
+
+# With coverage report
+python -m tgalpha.cli configs/djia_25years.yaml --show-coverage
+```
+
+---
+
+## ✅ [P3] SESSION START CHECKLIST
+
+**Execute at start of EVERY session:**
+
+```yaml
+step_1_read_principles:
+  action: Read CORE COLLABORATION PRINCIPLES section
+  why: Never violate test-first workflow or sequential work rules
+  
+step_2_check_changes:
+  action: git log --oneline -10
+  why: Understand what changed since last session
+  
+step_3_check_status:
+  action: Read CURRENT STATE section
+  why: Know what's completed vs in progress
+  
+step_4_user_context:
+  if_user_says_continue:
+    action: ASK "What should we work on?"
+    why: Don't assume what user wants to prioritize
+```
+
+**Before making ANY code changes:**
+
+```yaml
+step_1_check_history:
+  action: git log --grep="feature-name"
+  why: Don't re-implement existing patterns
+  
+step_2_read_file:
+  action: Read entire file you'll modify
+  why: Understand current implementation
+  
+step_3_check_tests:
+  action: Find related tests in tests/ directory
+  why: Know what test coverage exists
+  
+step_4_ask_if_unclear:
+  action: ASK user for clarification
+  why: Don't guess or assume
+```
+
+**After making changes:**
+
+```yaml
+step_1_request_test:
+  action: Say "Run tests: pytest tests/test_X.py -v"
+  why: Explicit test command for user
+  
+step_2_wait:
+  action: WAIT for user confirmation
+  do_not: Continue to next task, commit code, assume success
+  
+step_3_validate:
+  when: User confirms tests pass
+  action: Request full validation (ruff, black, mypy)
+  
+step_4_commit:
+  when: All checks pass
+  action: git commit with detailed message
+  message_must_include: WHY, WHAT, HOW, TESTED confirmation
+```
+
+---
+
+## 📍 METADATA FOOTER
+
+```yaml
+document:
+  version: 2.0
+  last_updated: 2025-11-15
+  optimized_for: Claude Sonnet 4.5
+  structure: Priority-based with decision trees
+  
+production:
+  version: 1.0.1
+  status: Production Ready
+  repository: https://github.com/lieblm/thanksgiving-alpha
+  
+package_ecosystem:
+  language: Python 3.12.6 (3.12.12 on CI)
+  package_manager: Poetry
+  virtual_env: .venv/
+  key_dependencies: polars, pandas, yfinance, typer@0.12.3
+  
+ci_cd:
+  platform: GitHub Actions
+  workflow: .github/workflows/ci.yml
+  stages: [ruff, black, mypy, pytest]
+  test_count: 28
+  status: All passing
+  
+contact:
+  author: Martin Liebl
+  email: lieblm@gmail.com
+  for_humans: See README.md or EXECUTIVE_SUMMARY.md
+```
+
+---
+
+**END OF AI INSTRUCTIONS**
 
 ---
 
