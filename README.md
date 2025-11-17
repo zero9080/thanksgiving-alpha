@@ -4,12 +4,30 @@
 
 Comprehensive quantitative analysis of major US equity indices (DJIA, NASDAQ-100, S&P 500) measuring returns from X business days before Thanksgiving to Y business days after. Built with Python, featuring proper NYSE trading calendars, statistical significance testing, and multi-format outputs.
 
+## 📊 Two Trading Windows Analyzed
+
+This project analyzes **two distinct trading windows** around Thanksgiving:
+
+1. **Thanksgiving Window** (Traditional): 3 days before → 1 day after (Black Friday half-day)
+2. **Cyber Monday Window** (Extended): 3 days before → 4 days after (Cyber Monday)
+
+See comparative analysis: **[COMPARISON_CYBER_MONDAY_VS_THANKSGIVING.md](COMPARISON_CYBER_MONDAY_VS_THANKSGIVING.md)**
+
 **Key Findings from 25-Year Multi-Index Analysis (2000-2024):**
+
+### Thanksgiving Window (Original Analysis)
 - **354 unique stocks** analyzed across 3 major indices with **8,293 stock-year observations**
 - **79-87% of stocks** show positive median returns during the Thanksgiving window
 - **Technology sector dominance:** 6 of top 10 performers across all indices
 - **Statistical rigor:** Proper multiple testing correction (Benjamini-Hochberg FDR) applied
 - **S&P 500 representative sample:** 270-stock subset (54% of index) selected for data quality and liquidity
+
+### Cyber Monday Window (Extended Analysis)
+- **374 unique stocks** analyzed with **8,510 stock-year observations**
+- **10 of 374 stocks (2.8%)** show statistical significance after FDR correction
+- **UNH strongest signal:** p=0.001 (DJIA), 84% win rate, +2.80% median return
+- **Extended window captures e-commerce momentum** (Cyber Monday online shopping surge)
+- See comprehensive report: **[COMPREHENSIVE_CYBER_MONDAY_ANALYSIS.md](COMPREHENSIVE_CYBER_MONDAY_ANALYSIS.md)**
 
 ## Features
 
@@ -94,7 +112,7 @@ start_year: 2000              # First year to analyze
 end_year: 2024                # Last year to analyze (inclusive)
 window:
   days_before: 3              # Business days before Thanksgiving
-  days_after: 1               # Business days after Thanksgiving
+  days_after: 1               # Business days after Thanksgiving (1=Black Friday, 4=Cyber Monday)
 ranking:
   min_trades: 10              # Minimum observations required per symbol
   compute_statistics: true    # Enable statistical significance testing
@@ -108,6 +126,18 @@ output:
 - `nasdaq100` - 100 NASDAQ-100 stocks (tech-heavy)
 - `sp500` - 270-stock representative sample (54% of S&P 500 index)
 - `path/to/file.csv` - Custom stock list (CSV with `symbol` column)
+
+**Pre-configured Trading Windows:**
+
+*Thanksgiving Window (Traditional Black Friday):*
+- `configs/djia_25years.yaml` - DJIA, days_after=1
+- `configs/nasdaq100_25years.yaml` - NASDAQ-100, days_after=1
+- `configs/sp500_25years.yaml` - S&P 500, days_after=1
+
+*Cyber Monday Window (Extended to Monday):*
+- `configs/djia_cyber_monday.yaml` - DJIA, days_after=4
+- `configs/nasdaq100_cyber_monday.yaml` - NASDAQ-100, days_after=4
+- `configs/sp500_cyber_monday.yaml` - S&P 500, days_after=4
 
 ### Example Output
 
@@ -142,10 +172,28 @@ Full results saved to data/outputs/
 
 ### Output Files
 
-Results are saved to the configured output directory:
+Results are saved to the configured output directory (`data/outputs/` by default):
 - `ranking.csv` - Full ranking table in CSV format
 - `ranking.parquet` - Full ranking table in Parquet format  
 - `ranking.html` - HTML table for easy viewing
+
+**Note:** Output files are regenerated with each run and are not tracked in git (see `.gitignore`).
+
+**To reproduce specific analyses:**
+
+*Thanksgiving Window (Traditional):*
+```bash
+python -m tgalpha.cli configs/djia_25years.yaml
+python -m tgalpha.cli configs/nasdaq100_25years.yaml
+python -m tgalpha.cli configs/sp500_25years.yaml
+```
+
+*Cyber Monday Window (Extended):*
+```bash
+python -m tgalpha.cli configs/djia_cyber_monday.yaml
+python -m tgalpha.cli configs/nasdaq100_cyber_monday.yaml
+python -m tgalpha.cli configs/sp500_cyber_monday.yaml
+```
 
 ### Output Columns
 
@@ -266,11 +314,19 @@ thanksgiving-alpha/
 ## Results & Findings
 
 For comprehensive analysis results, see:
+
+### Thanksgiving Window (Traditional Black Friday)
 - **[EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)** - Cross-index stakeholder overview (354 stocks, 8,293 observations)
 - **[ANALYSIS_SP500_25YEARS.md](ANALYSIS_SP500_25YEARS.md)** - S&P 500 detailed analysis (244 stocks, 5,756 observations)
 - **[ANALYSIS_NASDAQ100_25YEARS.md](ANALYSIS_NASDAQ100_25YEARS.md)** - NASDAQ-100 detailed analysis (80 stocks, 1,818 observations)
 - **[ANALYSIS_25YEARS.md](ANALYSIS_25YEARS.md)** - DJIA detailed analysis (30 stocks, 719 observations)
 - **[STATISTICAL_RESULTS_SUMMARY.md](STATISTICAL_RESULTS_SUMMARY.md)** - Statistical significance testing results
+
+### Cyber Monday Window (Extended to Monday)
+- **[COMPREHENSIVE_CYBER_MONDAY_ANALYSIS.md](COMPREHENSIVE_CYBER_MONDAY_ANALYSIS.md)** - Complete Cyber Monday analysis (374 stocks, 8,510 observations, 10 significant)
+- **[COMPARISON_CYBER_MONDAY_VS_THANKSGIVING.md](COMPARISON_CYBER_MONDAY_VS_THANKSGIVING.md)** - Side-by-side comparison of both trading windows
+
+### Additional Resources
 - **[REFERENCES.md](REFERENCES.md)** - Academic citations and methodology references
 
 **Top Performers Across All Indices (2000-2024):**
