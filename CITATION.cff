@@ -6,22 +6,28 @@ authors:
     email: "lieblm@gmail.com"
 title: "Thanksgiving-Alpha: Seasonality Research Tool for US Thanksgiving Stock Performance"
 version: 1.0.1
-date-released: 2025-11-07
+date-released: 2025-11-17
 url: "https://github.com/lieblm/thanksgiving-alpha"
 repository-code: "https://github.com/lieblm/thanksgiving-alpha"
 keywords:
   - quantitative finance
   - seasonality
   - thanksgiving effect
+  - cyber monday
   - stock market
   - DJIA
+  - NASDAQ-100
+  - S&P 500
   - algorithmic trading
   - market anomalies
   - Python
 license: MIT
 abstract: >
   A reproducible research tool for analyzing stock performance patterns 
-  around US Thanksgiving. Provides configurable analysis windows, proper 
-  NYSE trading calendar handling, and comprehensive statistical outputs. 
-  Includes 25-year historical analysis showing significant seasonality 
-  effects in DJIA constituents.
+  around US Thanksgiving. Provides configurable analysis windows (traditional
+  Thanksgiving/Black Friday and extended Cyber Monday), proper NYSE trading 
+  calendar handling, and comprehensive statistical outputs. Includes 25-year 
+  historical analysis across three major US indices (DJIA, NASDAQ-100, S&P 500)
+  showing significant seasonality effects. Cyber Monday window analysis reveals
+  10 statistically significant stocks (2.8%) after FDR correction across 374 
+  total stocks analyzed.
